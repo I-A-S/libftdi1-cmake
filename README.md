@@ -15,8 +15,6 @@ Compared to upstream 1.5, this fork includes:
    - Better out-of-the-box support for native Windows toolchains.
    - Additional compiler/build handling for Windows environments.
 
----
-
 --------------------------------------------------------------------
 libftdi version 1.5
 --------------------------------------------------------------------

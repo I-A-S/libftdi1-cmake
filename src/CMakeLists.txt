@@ -32,6 +32,7 @@ set_target_properties(ftdi1 PROPERTIES VERSION ${VERSION_FIXUP}.${MINOR_VERSION}
 # Prevent clobbering each other during the build
 set_target_properties ( ftdi1 PROPERTIES CLEAN_DIRECT_OUTPUT 1 )
 
+target_include_directories(ftdi1 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 # Dependencies
 target_link_libraries(ftdi1 PUBLIC ${LIBUSB_LIBRARIES})

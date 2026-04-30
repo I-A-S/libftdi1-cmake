@@ -1,7 +1,3 @@
---------------------------------------------------------------------
-libftdi version 1.5
---------------------------------------------------------------------
-
 ## NOTE: This is a fork!
 This repository is a maintained fork of upstream `libftdi` (version 1.5 lineage), originally developed by Intra2net AG and contributors.
 - Upstream project: https://www.intra2net.com/en/developer/libftdi
@@ -18,6 +14,12 @@ Compared to upstream 1.5, this fork includes:
 3. **Improved native Windows build support**
    - Better out-of-the-box support for native Windows toolchains.
    - Additional compiler/build handling for Windows environments.
+
+---
+
+--------------------------------------------------------------------
+libftdi version 1.5
+--------------------------------------------------------------------
 
 libftdi - A library (using libusb) to talk to FTDI's UART/FIFO chips
 including the popular bitbang mode.

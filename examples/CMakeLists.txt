@@ -33,7 +33,7 @@ target_link_libraries(purge_test ftdi1)
 
 # libftdi++ examples
 if( FTDIPP )
-	include_directories(BEFORE ${CMAKE_SOURCE_DIR}/ftdipp
+	include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR}/ftdipp
 			${Boost_INCLUDE_DIRS})
 
 	# Target
@@ -44,4 +44,4 @@ if( FTDIPP )
 endif( FTDIPP )
 
 # Source includes
-include_directories(BEFORE ${CMAKE_SOURCE_DIR}/src)
+include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR}/src)

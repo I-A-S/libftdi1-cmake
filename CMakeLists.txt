@@ -28,7 +28,6 @@ option ( STATICLIBS "Build static libraries" ON )
 option ( BUILD_TESTS "Build unit tests with Boost Unit Test framework" OFF )
 option ( DOCUMENTATION "Generate API documentation with Doxygen" OFF )
 option ( EXAMPLES "Build example programs" OFF )
-option ( FTDIPP "Build C++ binding library libftdi1++" OFF )
 option ( FTDI_EEPROM "Build ftdi_eeprom" OFF )
 option ( PYTHON_BINDINGS "Build python bindings via swig" OFF )
 option ( LINK_PYTHON_LIBRARY "Link against python libraries" OFF )
@@ -42,7 +41,7 @@ if(${CMAKE_BUILD_TYPE} STREQUAL Debug)
 endif(${CMAKE_BUILD_TYPE} STREQUAL Debug)
 
 # Find Boost
-if (FTDIPP OR BUILD_TESTS)
+if (BUILD_TESTS)
   find_package( Boost REQUIRED )
 endif()
 
@@ -50,14 +49,14 @@ endif()
 set(CPACK_COMPONENTS_ALL sharedlibs staticlibs headers)
 set(CPACK_COMPONENT_SHAREDLIBS_DISPLAY_NAME "Shared libraries")
 set(CPACK_COMPONENT_STATICLIBS_DISPLAY_NAME "Static libraries")
-set(CPACK_COMPONENT_HEADERS_DISPLAY_NAME "C++ Headers")
+set(CPACK_COMPONENT_HEADERS_DISPLAY_NAME "C Headers")
 
 set(CPACK_COMPONENT_SHAREDLIBS_DESCRIPTION
 "Shared library for general use.")
 set(CPACK_COMPONENT_STATICLIBS_DESCRIPTION
 "Static library, good if you want to embed libftdi1 in your application.")
 set(CPACK_COMPONENT_HEADERS_DESCRIPTION
-"C/C++ header files.")
+"C header files.")
 
 set(CPACK_COMPONENT_SHAREDLIBS_GROUP "Development")
 set(CPACK_COMPONENT_STATICLIBS_GROUP "Development")
@@ -148,10 +147,6 @@ if ( DOCUMENTATION )
 endif ()
 
 add_subdirectory(src)
-if ( FTDIPP )
-  project(libftdipp1 C CXX)
-  add_subdirectory(ftdipp)
-endif ()
 if ( PYTHON_BINDINGS )
 add_subdirectory(python)
 endif ()
@@ -179,15 +174,8 @@ if(${WIN32})
 endif(${WIN32})
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/libftdi1.pc.in ${CMAKE_BINARY_DIR}/libftdi1.pc @ONLY)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/libftdipp1.pc.in ${CMAKE_BINARY_DIR}/libftdipp1.pc @ONLY)
-install(FILES ${CMAKE_BINARY_DIR}/libftdi1.pc ${CMAKE_BINARY_DIR}/libftdipp1.pc
+install(FILES ${CMAKE_BINARY_DIR}/libftdi1.pc
         DESTINATION lib${LIB_SUFFIX}/pkgconfig)
-
-if (UNIX OR MINGW)
-  configure_file ( libftdi1-config.in ${CMAKE_CURRENT_BINARY_DIR}/libftdi1-config @ONLY )
-  install ( PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/libftdi1-config
-            DESTINATION bin )
-endif ()
 
 # config script install path
 if ( NOT DEFINED LIBFTDI_CMAKE_CONFIG_DIR )
@@ -200,10 +188,6 @@ set ( LIBFTDI_LIBRARY ftdi1 )
 set ( LIBFTDI_LIBRARIES ${LIBFTDI_LIBRARY} )
 set ( LIBFTDI_STATIC_LIBRARY ftdi1.a )
 set ( LIBFTDI_STATIC_LIBRARIES ${LIBFTDI_STATIC_LIBRARY} )
-if ( FTDIPP )
-  set ( LIBFTDIPP_LIBRARY ftdipp1 )
-  set ( LIBFTDIPP_LIBRARIES ${LIBFTDIPP_LIBRARY} )
-endif ()
 set ( LIBFTDI_LIBRARY_DIRS ${libdir} )
 set ( LIBFTDI_ROOT_DIR ${prefix} )
 set ( LIBFTDI_VERSION_STRING ${VERSION_STRING} )
@@ -245,7 +229,6 @@ include(CPack)
 message (STATUS "Summary of build options:
 
   Build static libs: ${STATICLIBS}
-  Build C++ bindings: ${FTDIPP}
   Build Python bindings: ${PYTHON_BINDINGS}
   Build ftdi_eeprom: ${FTDI_EEPROM}
   Build examples: ${EXAMPLES}

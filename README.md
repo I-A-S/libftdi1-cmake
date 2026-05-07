@@ -5,13 +5,17 @@ This repository is a maintained fork of upstream `libftdi` (version 1.5 lineage)
 
 ## What's Different in This Fork
 Compared to upstream 1.5, this fork includes:
-1. **Dependency integration via CMake FetchContent**
+1. **Removed C++ Wrapper (`ftdipp`) and Legacy Build Systems**
+   - The project is now a pure C library.
+   - The GPLv2 licensed C++ wrapper has been removed, simplifying the license to a single LGPLv2.
+   - Removed legacy `libftdi1-config` scripts; fully reliant on modern CMake.
+2. **Dependency integration via CMake FetchContent**
    - `libconfuse` and `libusb` are fetched and built automatically during configure/build.
    - Reduces manual dependency setup for local and CI builds.
-2. **Improved CMake scripts**
+3. **Improved CMake scripts**
    - Modernized CMake dependency and target handling.
    - Cleaner cross-platform configuration and more reproducible builds.
-3. **Improved native Windows build support**
+4. **Improved native Windows build support**
    - Better out-of-the-box support for native Windows toolchains.
    - Additional compiler/build handling for Windows environments.
 

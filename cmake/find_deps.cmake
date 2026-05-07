@@ -16,6 +16,13 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(LibUSB1)
 
+if(CMAKE_C_COMPILER_ID MATCHES "Clang" AND TARGET libconfuse)
+  # Silence missing isatty declaration error when building libconfuse with modern clang
+  target_compile_options(libconfuse PRIVATE
+    -Wno-implicit-function-declaration
+  )
+endif()
+
 if(WIN32 AND CMAKE_C_COMPILER_ID MATCHES "Clang" AND TARGET usb-1.0)
   # Silence noisy third-party warnings from vendored libusb when using clang on Windows.
   target_compile_options(usb-1.0 PRIVATE
